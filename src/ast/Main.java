@@ -24,7 +24,6 @@ public class Main {
 //        String testFile = args[0];
 
         try {
-
             CharStream input = CharStreams.fromFileName("/Users/arjuns/IdeaProjects/Back-End-Tiger-Compiler/examples/input.tig");
             Lexertiger lexer = new Lexertiger(input); 
             CommonTokenStream stream = new CommonTokenStream(lexer);
@@ -32,10 +31,8 @@ public class Main {
 
             ProgramContext program = parser.program();
 
-        
             AstCreator creator = new AstCreator();
             Ast ast = program.accept(creator);
-
             GraphVizVisitor graphViz = new GraphVizVisitor();
             ast.accept(graphViz);
         

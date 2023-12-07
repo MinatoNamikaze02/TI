@@ -12,7 +12,7 @@ public class Dptegal implements Ast{
         return 0;
     }
 
-    // Utile
+   
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }

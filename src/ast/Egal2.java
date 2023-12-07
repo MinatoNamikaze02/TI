@@ -30,8 +30,4 @@ public class Egal2 implements Ast{
         this.line = line;
         this.column = column;
     }
-    
-
-
-
 }
