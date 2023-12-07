@@ -1,89 +1,93 @@
 package tds;
 
-public class Array{
-    public String identifiant;
+public class Array {
+    public String identifier;
     public String nature;
     public String type;
-    public int deplacement;
+    public int displacement;
     public int tableID;
     public boolean isLocal;
-    public int debut;
-    public int fin;
-    public String type_elt;
+    public int start;
+    public int end;
+    public String elementType;
 
-
-    public Array(String identifiant ,String type, String type_elt, int debut, int fin){
-        this.identifiant=identifiant;
-        this.type=type;
-        this.type_elt =type_elt;
-        this.isLocal=true;
-        this.deplacement=0;
+    public Array(String identifier, String type, String elementType, int start, int end) {
+        this.identifier = identifier;
+        this.type = type;
+        this.elementType = elementType;
+        this.isLocal = true;
+        this.displacement = 0;
         this.nature = "array";
-        this.debut =debut;
-        this.fin=fin;
-        this.tableID= -2;
+        this.start = start;
+        this.end = end;
+        this.tableID = -2;
     }
 
-    public String getIdentifiant(){
-        return this.identifiant;
-    }
-    public void setIdentifiant(String identifiant){
-        this.identifiant=identifiant;
+    public String getIdentifier() {
+        return this.identifier;
     }
 
-    public String getNature(){
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getNature() {
         return this.nature;
     }
-    public void setNature(String nature){
-        this.nature=nature;
+
+    public void setNature(String nature) {
+        this.nature = nature;
     }
 
-    public String getType(){
+    public String getType() {
         return this.type;
     }
-    public void setType(String type){
-        this.type=type;
+
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getType_elt(){
-        return this.type_elt;
-    }
-    public void setType_elt(String type_elt){
-        this.type_elt=type_elt;
+    public String getElementType() {
+        return this.elementType;
     }
 
-    public int getDeplacement(){
-        return this.deplacement;
-    }
-    public void setDeplacement(int deplacement){
-        this.deplacement=deplacement;
+    public void setElementType(String elementType) {
+        this.elementType = elementType;
     }
 
-    public int getTableID(){
+    public int getDisplacement() {
+        return this.displacement;
+    }
+
+    public void setDisplacement(int displacement) {
+        this.displacement = displacement;
+    }
+
+    public int getTableID() {
         return this.tableID;
     }
-    public void setTableID(int tableID){
-        this.tableID=tableID;
+
+    public void setTableID(int tableID) {
+        this.tableID = tableID;
     }
 
-    public int getDebut(){
-        return this.debut;
-    }
-    public void setDebut(int debut){
-        this.debut=debut;
+    public int getStart() {
+        return this.start;
     }
 
-    public int getFin(){
-        return this.fin;
-    }
-    public void setFin(int fin){
-        this.fin=fin;
+    public void setStart(int start) {
+        this.start = start;
     }
 
-    public boolean isLocal(){
+    public int getEnd() {
+        return this.end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    public boolean isLocal() {
         return this.isLocal;
     }
-
-
-
 }

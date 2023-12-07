@@ -6,22 +6,22 @@ public class Strin  implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
     public String strin;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Strin(String strin, int ligne, int colonne){
+    public Strin(String strin, int line, int column){
         this.strin=strin.replace(String.valueOf('"'),String.valueOf("\\"+'"'));
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 }

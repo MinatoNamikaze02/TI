@@ -8,7 +8,7 @@ public class SimplificationCalcul {
             if(((Plus)tree).left instanceof In && ((Plus)tree).right instanceof In){
                 In gauche = (In) ((Plus)tree).left;
                 In droit = (In) ((Plus)tree).right;
-                
+
                 int gauche1= gauche.in;
                 int droit1=droit.in;
                 return gauche1+droit1;
@@ -99,9 +99,9 @@ public class SimplificationCalcul {
     public static void warningSimplification(String tdsname,String info ,Ast tree){
         int resultatsimpli = checkSimplification(tree);
         if(resultatsimpli!=0){
-           System.err.println("\u001B[33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"SimplificationWarning : vous pourriez remplacer le calcul "+ info+ " par " +resultatsimpli + " plutot \u001B[0m\n");
-     
+            System.err.println("\u001B[33m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Simplification Warning: you could replace the calculation " + info + " with " + resultatsimpli + " instead \u001B[0m\n");
+
         }
-        
+
     }
 }

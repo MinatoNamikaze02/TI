@@ -3,7 +3,7 @@ package semantic;
 import ast.*;
 import tds.Table;
 
-public class BoucleFor {
+public class ForLoop {
     public static boolean CheckBorneMinInfBorneMax(Ast min, Ast max, Table tds){
         if(min instanceof In && max instanceof In){
             String nameMin =min.getClass().getName().replace('\n', '\0');
@@ -15,7 +15,7 @@ public class BoucleFor {
                     return true;
                 }
             }
-            System.err.println("\u001B[31m"+"Ligne "+min.getLine()+":"+min.getColumn()+" : "+"BoucleForException : Borne min supérieure à borne max (attendu une borne min strictement inférieure à une borne max)\u001B[0m\n");
+            System.err.println("\u001B[31m" + "Line " + min.getLine() + ":" + min.getColumn() + " : " + "ForLoop Exception : Minimum bound greater than maximum bound (expected a minimum bound strictly less than a maximum bound)\u001B[0m\n");
             return false;
         }
         else{
@@ -34,7 +34,7 @@ public class BoucleFor {
                     return true;
                 }
             }
-            System.err.println("\u001B[33m"+"Ligne "+min.getLine()+":"+min.getColumn()+" : "+"BoucleForWarning : Borne min egale à borne max (attendu une borne min strictement inférieure à une borne max)\u001B[0m\n");
+            System.err.println("\u001B[33m" + "Line " + min.getLine() + ":" + min.getColumn() + " : " + "ForLoop Warning : Minimum bound equal to maximum bound (expected a minimum bound strictly less than a maximum bound)\u001B[0m\n");
             return false;
         }
         else{

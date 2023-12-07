@@ -8,25 +8,25 @@ public class Typefields implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
     public ArrayList<Ast> typefield;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
 
 
-    public Typefields(ArrayList<Ast> list, int ligne, int colonne){
+    public Typefields(ArrayList<Ast> list, int line, int column){
         this.typefield = list;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }
 

@@ -48,6 +48,6 @@ public interface AstVisitor<T> {
 	public T visit(Vardec1 affect);
 	public T visit(Dptegal affect);
 	public T visit(Arrof affect);
-	public T visit(AccesVar affect);
+	public T visit(AccessVar affect);
 
 }

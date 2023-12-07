@@ -8,25 +8,24 @@ public class IfThen implements Ast{
     public Ast left;
     public Ast center;
     public Ast right;
-    public int ligne;
+    public int line;
 
-    public int colonne;
-    
-    public IfThen(Ast left, Ast center, Ast right, int ligne, int colonne){
+    public int column;
+    public IfThen(Ast left, Ast center, Ast right, int line, int column){
         this.left=left;
         this.center=center;
         this.right = right;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 }

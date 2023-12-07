@@ -17,14 +17,14 @@ import ast.Nil ;
 import ast.Plus;
 import ast.IfThen ;
 import ast.While ;
-import semantic.Fonction;
-import semantic.AccesListe;
-import semantic.BoucleFor;
-import semantic.BreakCodeInutile;
+import semantic.Function;
+import semantic.AccessList;
+import semantic.ForLoop;
+import semantic.BreakCodeUtil;
 import semantic.Declaration;
 import semantic.Expression;
 import semantic.Division;
-import semantic.IfWhileInutile;
+import semantic.IfWhileUtil;
 import semantic.SimplificationCalcul;
 import ast.For ;
 import ast.Break ;
@@ -42,7 +42,7 @@ import ast.FdecWithoutfields;
 import ast.Exprlist ;
 import ast.Fieldlist ;
 import ast.Field ;
-import ast.AccesVar;
+import ast.AccessVar;
 import ast.Appelfunc ;
 import ast.Idcall2;
 import ast.Pointid ;
@@ -133,7 +133,7 @@ public class SymbolTable implements AstVisitor<String> {
         tds = tdsFils;
     }
 
-    public void addProcFonc(ProcFonc procfonc, Ast tree){
+    public void addProcFonc(ProcFunc procfonc, Ast tree){
             tds.addProcFonc(procfonc, tree);
     }
 
@@ -183,7 +183,7 @@ public class SymbolTable implements AstVisitor<String> {
         }
         if (tailledec){
             tailletype+=affect.strin;
-            
+
         }
         return nodeIdentifier;
     }
@@ -214,7 +214,7 @@ public class SymbolTable implements AstVisitor<String> {
 
         //Controle Semantique
         Expression.checktype(affect.left, "bool", this.tdsStack, this.tds);
-        IfWhileInutile.warningIfInutile("while",affect.left,this.tds);
+        IfWhileUtil.warningIfInutile("while",affect.left,this.tds);
         affect.left.accept(this);
         int i=1;
         for(int j=1;j<=this.tds.functions.size();j++){
@@ -222,14 +222,14 @@ public class SymbolTable implements AstVisitor<String> {
                 i++;
             }
         }
-        ProcFonc whileblock = new ProcFonc("While block "+i, "While",new ArrayList<VarType>());
+        ProcFunc whileblock = new ProcFunc("While block "+i, "While",new ArrayList<VarType>());
         whileblock.setUsed();
         this.addProcFonc(whileblock, affect);
 
         this.addFils("While block "+i);
         affect.right.accept(this);
         if(this.inutile){
-            BreakCodeInutile.checkBreakDo(affect.right,"While");
+            BreakCodeUtil.checkBreakDo(affect.right,"While");
         }
         this.inutile=false;
         this.closeFils();
@@ -241,35 +241,33 @@ public class SymbolTable implements AstVisitor<String> {
     public String visit(For affect) {
         String nodeIdentifier = this.nextState();
 
-        //Controles Semantiques
         Expression.checktype(affect.min, "int", this.tdsStack, this.tds);
         Expression.checktype(affect.max, "int", this.tdsStack, this.tds);
-        BoucleFor.CheckBorneMinInfBorneMax(affect.min, affect.max, this.tds);
-        BoucleFor.CheckBorneMinNotBorneMax(affect.min, affect.max, this.tds);
-        
-        // peut être à ajouter
+        ForLoop.CheckBorneMinInfBorneMax(affect.min, affect.max, this.tds);
+        ForLoop.CheckBorneMinNotBorneMax(affect.min, affect.max, this.tds);
+
         ArrayList<VarType> args = new ArrayList<VarType>();
         varDec=false;
         VarType var = new VarType(affect.id, "int", "Var",affect.getLine(),affect.getColumn());
-        
+
         args.add(var);
         int i=1;
         for(int j=1;j<=this.tds.functions.size();j++){
-            if(this.tds.getProcFonc("Boucle for "+j)!=null){
+            if(this.tds.getProcFonc("For loop "+j)!=null){
                 i++;
             }
         }
-        ProcFonc forboucle = new ProcFonc("Boucle for "+i, "for", args);
-        forboucle.setUsed();
-        this.addProcFonc(forboucle, affect);
-        this.addFils("Boucle for "+i);
+        ProcFunc forloop = new ProcFunc("For loop "+i, "for", args);
+        forloop.setUsed();
+        this.addProcFonc(forloop, affect);
+        this.addFils("For loop "+i);
         var.setUsed(true);
         this.addVarType(var, affect);
         affect.min.accept(this);
         affect.max.accept(this);
         affect.regle.accept(this);
         if(this.inutile){
-            BreakCodeInutile.checkBreakDo(affect.regle,"For");
+            BreakCodeUtil.checkBreakDo(affect.regle,"For");
         }
         this.inutile=false;
         this.closeFils();
@@ -282,7 +280,7 @@ public class SymbolTable implements AstVisitor<String> {
         String nodeIdentifier = this.nextState();
         Table tdsActuelle = new Table(tds.getId());
         tdsActuelle= tdsActuelle.joinTDS(tdsStack);
-        BreakCodeInutile.checkBreakWellPlaced(tdsActuelle,tds.name, affect);
+        BreakCodeUtil.checkBreakWellPlaced(tdsActuelle,tds.name, affect);
         this.inutile=true;
         return nodeIdentifier;
     }
@@ -311,7 +309,7 @@ public class SymbolTable implements AstVisitor<String> {
         if(affect.typefields != null){
             affect.typefields.accept(this);
         }
-        ProcFonc func = new ProcFonc(funcid, functype, args);
+        ProcFunc func = new ProcFunc(funcid, functype, args);
         this.addProcFonc(func, affect);
         this.addFils(funcid);
         for (VarType var:args){
@@ -397,10 +395,10 @@ public class SymbolTable implements AstVisitor<String> {
 
         //Controles Semantiques
         if (Declaration.checkFuncdeclared(affect.id, this.tdsStack, this.tds,affect)){
-            Fonction.checknombreparametres(affect,this.tdsStack,this.tds);
-            Fonction.checktypeparametres(affect, this.tdsStack, this.tds);
-            Fonction.checkdeclaration(affect, this.tdsStack, this.tds);
-            tds.setUsed(tdsStack, affect.id, "Fonction");
+            Function.checknombreparametres(affect,this.tdsStack,this.tds);
+            Function.checktypeparametres(affect, this.tdsStack, this.tds);
+            Function.checkdeclaration(affect, this.tdsStack, this.tds);
+            tds.setUsed(tdsStack, affect.id, "Function");
         }
 
         if (tailledec){
@@ -439,7 +437,6 @@ public class SymbolTable implements AstVisitor<String> {
         String nodeIdentifier = this.nextState();
         affect.expr.accept(this);
 
-        //Controle semantique
         Expression.checktype(affect.expr, "int", this.tdsStack, this.tds);
 
         if(affect.lvaluebis != null){
@@ -637,7 +634,7 @@ public class SymbolTable implements AstVisitor<String> {
 
         //Controle semantique
         if (Expression.checktype(affect.left, "bool", this.tdsStack, this.tds)){
-            IfWhileInutile.warningIfInutile("if",affect.left,this.tds);
+            IfWhileUtil.warningIfInutile("if",affect.left,this.tds);
         }
         affect.left.accept(this);
         int i=1;
@@ -646,7 +643,7 @@ public class SymbolTable implements AstVisitor<String> {
                 i++;
             }
         }
-        ProcFonc then = new ProcFonc("Then block "+i, "Then",new ArrayList<VarType>());
+        ProcFunc then = new ProcFunc("Then block "+i, "Then",new ArrayList<VarType>());
         then.setUsed();
         this.addProcFonc(then, affect.center);
         this.addFils("Then block "+i);
@@ -661,7 +658,7 @@ public class SymbolTable implements AstVisitor<String> {
                     i++;
                 }
             }
-            ProcFonc Else = new ProcFonc("Else block "+k, "Else",new ArrayList<VarType>());
+            ProcFunc Else = new ProcFunc("Else block "+k, "Else",new ArrayList<VarType>());
             Else.setUsed();
             this.addProcFonc(Else, affect.right);
             this.addFils("Else block "+k);
@@ -683,8 +680,8 @@ public class SymbolTable implements AstVisitor<String> {
     public String visit(Dif affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktypeEgal(affect, tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole différent",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole différent",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'different from' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'different from' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
@@ -696,55 +693,57 @@ public class SymbolTable implements AstVisitor<String> {
     public String visit(Inf affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktype(affect, "bool", tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole inférieur",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole inférieur",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'less than' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'less than' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Sup affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktype(affect, "bool", tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole supérieur",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole supérieur",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'greater than' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'greater than' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Infeg affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktype(affect, "bool", tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole inférieur ou égal",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole inférier égal",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'less than or equal to' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'less than or equal to' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
-
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Supeg affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktype(affect, "bool", tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole supérieur ou égal",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole supérieur ou égal",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'greater than or equal to' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'greater than or equal to' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
-
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Plus affect) {
@@ -773,7 +772,7 @@ public class SymbolTable implements AstVisitor<String> {
     @Override
     public String visit(Mul affect) {
         String nodeIdentifier = this.nextState();
-        
+
         affect.left.accept(this);
         if (tailledec){
             tailletype+="*";
@@ -788,7 +787,7 @@ public class SymbolTable implements AstVisitor<String> {
     @Override
     public String visit(Div affect) {
         String nodeIdentifier = this.nextState();
-        
+
         affect.left.accept(this);
         if (tailledec){
             tailletype+="/";
@@ -808,7 +807,7 @@ public class SymbolTable implements AstVisitor<String> {
         funcid = affect.id;
         funcdec=true;
         typefuncdec=false;
-        ProcFonc func = new ProcFonc(funcid, functype , null);
+        ProcFunc func = new ProcFunc(funcid, functype , null);
         this.addProcFonc(func, affect);
         this.addFils(funcid);
 
@@ -822,14 +821,15 @@ public class SymbolTable implements AstVisitor<String> {
     public String visit(Egal2 affect) {
         String nodeIdentifier = this.nextState();
         if (Expression.checktypeEgal(affect, tdsStack, tds)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole égal",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole égal",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the 'equal' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the 'equal' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Typeswithof affect) {
@@ -880,15 +880,15 @@ public class SymbolTable implements AstVisitor<String> {
         String nodeIdentifier = this.nextState();
 
         if (Expression.checktypeDptEgal(affect, this.tds, this.tdsStack)){
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote gauche du symbole :=",affect.left);
-            SimplificationCalcul.warningSimplification(this.tds.name,"cote droit du symbole :=",affect.right);
+            SimplificationCalcul.warningSimplification(this.tds.name,"left side of the ':=' symbol",affect.left);
+            SimplificationCalcul.warningSimplification(this.tds.name,"right side of the ':=' symbol",affect.right);
         }
         affect.left.accept(this);
         affect.right.accept(this);
 
-
         return nodeIdentifier;
     }
+
 
     @Override
     public String visit(Arrof affect) {
@@ -902,17 +902,17 @@ public class SymbolTable implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(AccesVar affect) {
+    public String visit(AccessVar affect) {
         tds.setUsed(this.tdsStack, affect.id, "Var");
         String nodeIdentifier = this.nextState();
         if (affect.id != null){
             if (Declaration.checkVardeclared(affect.id, this.tdsStack, this.tds,affect)){
-                AccesListe.warningAccesListe(affect,this.tdsStack, this.tds);
+                AccessList.warningAccesListe(affect,this.tdsStack, this.tds);
             }
         }
         else{
             affect.left.accept(this);
-            AccesListe.warningAccesListe(affect,this.tdsStack, this.tds);
+            AccessList.warningAccesListe(affect,this.tdsStack, this.tds);
         }
         if (tailledec){
             tailletype=affect.id;

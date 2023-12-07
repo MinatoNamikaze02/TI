@@ -33,7 +33,7 @@ import ast.FdecWithoutfields;
 import ast.Exprlist ;
  import ast.Fieldlist ;
  import ast.Field ;
-import ast.AccesVar;
+import ast.AccessVar;
 import ast.Appelfunc ;
 import ast.Idcall2;
 import ast.Pointid ;
@@ -192,10 +192,10 @@ public class GraphVizVisitor implements AstVisitor<String> {
         this.addTransition(nodeIdentifier, nodeIdentifier5);
         this.addNodeTerm(nodeIdentifier1, affect.id);
         this.addTransition(nodeIdentifier5, nodeIdentifier1);
-        this.addNode(nodeIdentifier2, "Borne Min");
+        this.addNode(nodeIdentifier2, "Min Bound");
         this.addTransition(nodeIdentifier, nodeIdentifier2);
         this.addTransition(nodeIdentifier2, min);
-        this.addNode(nodeIdentifier3, "Borne Max");
+        this.addNode(nodeIdentifier3, "Max Bound");
         this.addTransition(nodeIdentifier, nodeIdentifier3);
         this.addTransition(nodeIdentifier3, max);
         this.addNode(nodeIdentifier4, "Do Block");
@@ -269,7 +269,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     @Override
     public String visit(Typegal affect) {
         String nodeIdentifier = this.nextState();
-        this.addNode(nodeIdentifier, "Type Egal");
+        this.addNode(nodeIdentifier, "Equal Type");
         String typeid = affect.typeid.accept(this);
         this.addTransition(nodeIdentifier, typeid);
         String nodeIdentifier1 = this.nextState();
@@ -350,10 +350,10 @@ public class GraphVizVisitor implements AstVisitor<String> {
     @Override
     public String visit(Appelfunc affect) {
         String nodeIdentifier = this.nextState();
-        this.addNode(nodeIdentifier, "Appel Fonction");
+        this.addNode(nodeIdentifier, "Function Call");
         String nodeIdentifier1 = this.nextState();
         String nodeIdentifier2 = this.nextState();
-        this.addNode(nodeIdentifier2, "Fonction");
+        this.addNode(nodeIdentifier2, "Function");
         this.addTransition(nodeIdentifier, nodeIdentifier2);
         if (affect.id != null){
             this.addNodeTerm(nodeIdentifier1, affect.id);
@@ -367,7 +367,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
         
         if (affect.right != null){
             String nodeIdentifier3 = this.nextState();
-            this.addNode(nodeIdentifier3, "Parametres");
+            this.addNode(nodeIdentifier3, "Parameters");
             this.addTransition(nodeIdentifier, nodeIdentifier3);
             String right = affect.right.accept(this);
             this.addTransition(nodeIdentifier3, right);
@@ -395,7 +395,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
             }
             String nodeIdentifier3 = this.nextState();
             this.addTransition(nodeIdentifier, nodeIdentifier3);
-            this.addNode(nodeIdentifier3, "Sous-Variable");
+            this.addNode(nodeIdentifier3, "Sub-Variable");
             String nodeIdentifier4 = this.nextState();
             this.addNodeTerm(nodeIdentifier4, affect.fils);
             this.addTransition(nodeIdentifier3, nodeIdentifier4);
@@ -409,7 +409,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     @Override
     public String visit(Croexpr affect) {
         String nodeIdentifier = this.nextState();
-        this.addNode(nodeIdentifier, "Croexpr");
+        this.addNode(nodeIdentifier, "BracketExpression");
         String expr = affect.expr.accept(this);
         this.addTransition(nodeIdentifier, expr);
         if(affect.lvaluebis != null){
@@ -773,9 +773,9 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(AccesVar affect) {
+    public String visit(AccessVar affect) {
         String nodeIdentifier = this.nextState();
-        this.addNode(nodeIdentifier, "Acces Var");
+        this.addNode(nodeIdentifier, "Access Var");
         String nodeIdentifier1 = this.nextState();
         String nodeIdentifier2 = this.nextState();
         
@@ -792,7 +792,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
         }
         if (affect.right != null){
             String nodeIdentifier3 = this.nextState();
-            this.addNode(nodeIdentifier3, "Valeur");
+            this.addNode(nodeIdentifier3, "Value");
             this.addTransition(nodeIdentifier, nodeIdentifier3);
             String right = affect.right.accept(this);
             this.addTransition(nodeIdentifier3, right);

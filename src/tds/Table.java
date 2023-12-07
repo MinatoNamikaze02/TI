@@ -8,7 +8,7 @@ public class Table {
 	public static int nbTable=-1;
 	public int id;
 	public ArrayList<VarType> variables = new ArrayList<VarType>();
-	public ArrayList<ProcFonc> functions = new ArrayList<ProcFonc>();
+	public ArrayList<ProcFunc> functions = new ArrayList<ProcFunc>();
 	public int parentId;
     public ArrayList<Table> fils = new ArrayList<Table>();
     public int arg_depl;
@@ -30,7 +30,7 @@ public class Table {
         this.parentId = pere;
 	}
 	
-	public Table(ArrayList<VarType> var, ArrayList<ProcFonc> fct,int pere){
+	public Table(ArrayList<VarType> var, ArrayList<ProcFunc> fct,int pere){
 		nbTable++;
 		this.id = nbTable;
 		this.variables.clear();
@@ -46,7 +46,7 @@ public class Table {
             }
         }
 
-        for (ProcFonc the_func : this.functions) {
+        for (ProcFunc the_func : this.functions) {
             the_func.setTableID(this.id);
         }
 	}
@@ -194,7 +194,7 @@ public class Table {
         }
 	}
 	
-	public void addProcFonc(ProcFonc fct , Ast tree) {
+	public void addProcFonc(ProcFunc fct , Ast tree) {
 		if(!checkAlreadyExist(fct)){
             this.functions.add(fct);
             fct.setTableID(this.id);
@@ -217,8 +217,8 @@ public class Table {
 			}
 			return false;
 		}else{
-			for(ProcFonc el : functions){
-				if(el.getIdentifiant().equals(((ProcFonc) var).getIdentifiant())){
+			for(ProcFunc el : functions){
+				if(el.getIdentifier().equals(((ProcFunc) var).getIdentifier())){
 					return true;
 				}
 			}
@@ -241,9 +241,9 @@ public class Table {
 
    
 
-    public ProcFonc getProcFonc(String funcName) {
-        for (ProcFonc myFunc : functions) {
-            if (myFunc.getIdentifiant().equals(funcName)) {
+    public ProcFunc getProcFonc(String funcName) {
+        for (ProcFunc myFunc : functions) {
+            if (myFunc.getIdentifier().equals(funcName)) {
                 return myFunc;
             }
         }
@@ -272,7 +272,7 @@ public class Table {
                     }
                 }
             }
-            for (ProcFonc proc : tds.functions) {
+            for (ProcFunc proc : tds.functions) {
                 if(!checkAlreadyExist(proc)){
                     newTDS.functions.add(proc);
                     proc.setTableID(this.id);
@@ -299,7 +299,7 @@ public class Table {
                 }
                 return;
             }else{
-                ProcFonc proc = tds.getProcFonc(varName);
+                ProcFunc proc = tds.getProcFonc(varName);
                 if (proc != null) {
                     proc.setUsed();
                     while(!temp.isEmpty()){

@@ -3,7 +3,7 @@ import ast.*;
 import tds.Table;
 
 
-public class IfWhileInutile {
+public class IfWhileUtil {
     public static boolean checkIfInutile(Ast tree) {
         String name =tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.Expr0") ){
@@ -20,7 +20,7 @@ public class IfWhileInutile {
                     In droit =(In) ((Inf)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1<droit1){
-                        
+
                         return true;
                     }
                     else{
@@ -51,7 +51,7 @@ public class IfWhileInutile {
             }
             else if(name.equals("ast.Egal2")){
                 if(((Egal2)(tree)).left instanceof In && ((Egal2)(tree)).right instanceof In){
-                    
+
                     In gauche =(In) ((Egal2)(tree)).left;
                     int gauche1 = gauche.in;
                     In droit =(In) ((Egal2)(tree)).right;
@@ -163,7 +163,7 @@ public class IfWhileInutile {
                     In droit =(In) ((Inf)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1>=droit1){
-                        
+
                         return true;
                     }
                     else{
@@ -194,7 +194,7 @@ public class IfWhileInutile {
             }
             else if(name.equals("ast.Egal2")){
                 if(((Egal2)(tree)).left instanceof In && ((Egal2)(tree)).right instanceof In){
-                    
+
                     In gauche =(In) ((Egal2)(tree)).left;
                     int gauche1 = gauche.in;
                     In droit =(In) ((Egal2)(tree)).right;
@@ -293,12 +293,12 @@ public class IfWhileInutile {
     public static void warningIfInutile(String info,Ast tree, Table tds ){
         boolean IfInutile = checkIfInutile(tree);
         if(IfInutile){
-            System.err.println("\u001B[33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+info+"InutileWarning : une condition "+info+" est utilisée alors qu'elle est toujours vraie\u001B[0m\n");
-        
+            System.err.println("\u001B[33m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + info + "Unused Warning: a condition " + info + " is used even though it is always true\u001B[0m\n");
+
         }
         if(checkIfInutileFalse(tree)){
-            System.err.println("\u001B[33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+info+"InutileWarning : une condition "+info+" est utilisée alors qu'elle est toujours fausse\u001B[0m\n");
-        
+            System.err.println("\u001B[33m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + info + "Unused Warning: a condition " + info + " is used even though it is always false\u001B[0m\n");
+
         }
     }
 }

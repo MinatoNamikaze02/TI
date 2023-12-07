@@ -6,23 +6,23 @@ public class Croexpr implements Ast{
         return visitor.visit(this);
     }
     public int getLine(){
-        return this.ligne;
+        return this.line;
     }
 
     public int getColumn(){
-        return this.colonne;
+        return this.column;
     }
     
     public Ast expr;
     public Ast lvaluebis;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Croexpr (Ast expr, Ast lvaluebi, int ligne, int colonne){
+    public Croexpr (Ast expr, Ast lvaluebi, int line, int column){
         this.expr = expr;
         this.lvaluebis = lvaluebi;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }

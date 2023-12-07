@@ -6,24 +6,24 @@ public class Typeidid  implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public String id;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typeidid(String id, int ligne, int colonne){
+    public Typeidid(String id, int line, int column){
         this.id = id;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }
 

@@ -5,13 +5,13 @@ import ast.*;
 import tds.Table;
 import tds.VarType;
 
-public class AccesListe {
+public class AccessList {
     public static boolean checkAccesListe(Ast tree, Table tds,Stack<Table> pile){
         String name = tree.getClass().getName().replace('\n', '\0');
-        if(name.equals("ast.AccesVar")){
-            String nomListe = ((AccesVar)tree).id;
-            if(((AccesVar)(tree)).right instanceof In){
-                In valeur1= (In)((AccesVar)(tree)).right;
+        if(name.equals("ast.AccessVar")){
+            String nomListe = ((AccessVar)tree).id;
+            if(((AccessVar)(tree)).right instanceof In){
+                In valeur1= (In)((AccessVar)(tree)).right;
                 int valeurbis = valeur1.in;
                 Table tableactuel = new Table(tds.getId());
                 tableactuel.joinTDS(pile);
@@ -21,9 +21,9 @@ public class AccesListe {
                     int borneMaxbis= Integer.parseInt(borneMax);
                     if(borneMaxbis<=valeurbis){
                         return true;
-                    } 
+                    }
                 }
-                
+
             }
         }
         return false;
@@ -31,8 +31,8 @@ public class AccesListe {
 
     public static void warningAccesListe(Ast tree, Stack<Table> pile,Table tds){
         if(checkAccesListe(tree, tds,pile)){
-            System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"OutOfRangeError : le rang demandé dépasse la taille de la liste à laquelle on veut accéder \u001B[0m\n");
-     
+            System.err.println("\u001B[31m"+"Line "+tree.getLine()+":"+tree.getColumn()+" : "+"OutOfRangeError : the requested index exceeds the size of the list being accessed \u001B[0m\n");
+
         }
     }
     public static boolean isInteger(String str) {

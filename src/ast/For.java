@@ -8,26 +8,26 @@ public class For implements Ast {
     public Ast min;
     public Ast max;
     public Ast regle;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public For(String id, Ast min, Ast max, Ast regle, int ligne, int colonne){
+    public For(String id, Ast min, Ast max, Ast regle, int line, int column){
         this.id=id;
         this.min=min;
         this.max=max;
         this.regle=regle;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 }

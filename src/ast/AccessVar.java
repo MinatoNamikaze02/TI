@@ -1,38 +1,38 @@
 package ast;
 
-public class AccesVar implements Ast{
+public class AccessVar implements Ast{
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
 
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
     public Ast right;
     public String id;
     public Ast left;
 
-    public AccesVar(String id,Ast right,int ligne,int colonne){
+    public AccessVar(String id,Ast right,int line,int column){
         this.id=id;
         this.right= right;
         this.left=null;
-        this.ligne = ligne;
-        this.colonne =colonne;
+        this.line = line;
+        this.column =column;
     }
 
-    public AccesVar(Ast left, Ast right, int ligne, int colonne){
+    public AccessVar(Ast left, Ast right, int line, int column){
         this.left=left;
         this.right=right;
         this.id=null;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
     public int getLine(){
-        return this.ligne;
+        return this.line;
     }
 
     public int getColumn(){
-        return this.colonne;
+        return this.column;
     }
 }

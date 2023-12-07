@@ -5,21 +5,21 @@ public class Break implements Ast{
         return visitor.visit(this);
     }
     public int getLine(){
-        return this.ligne;
+        return this.line;
     }
 
     public int getColumn(){
-        return this.colonne;
+        return this.column;
     }
     public String coup;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Break(String coup, int ligne, int colonne){
+    public Break(String coup, int line, int column){
         this.coup=coup;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 
 }

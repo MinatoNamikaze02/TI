@@ -10,26 +10,27 @@ public class Typeswithof implements Ast{
     public Ast typeid;
     public Ast expr1;
     public Ast expr2;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typeswithof(String of, Ast typeid, Ast expr1, Ast expr2, int ligne, int colonne){
+
+    public Typeswithof(String of, Ast typeid, Ast expr1, Ast expr2, int line, int column){
         this.of = of;
         this.typeid = typeid;
         this.expr1 = expr1;
         this.expr2 = expr2;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 }

@@ -33,10 +33,10 @@ public class Expression {
                 return true;
             }
         }
-        System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression : (attendu : int)\u001B[0m\n");
+        System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression : (expected: int)\u001B[0m\n");
         return false;
     }
-    
+
     public static boolean checktype(Ast tree, String typeAttendu,Stack<Table> pile,Table tds) {
         if (tree == null) {
             return false;
@@ -56,7 +56,7 @@ public class Expression {
             return checktype((Ast)((Exprnegation)tree).expr,"bool",pile,tds);
         }else if(name.equals("ast.Idcall2")){
             if(!Declaration.checkVardeclared(((Idcall2)tree).id,pile,tds,tree)){
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"DeclarationException : Variable non déclarée : "+((Idcall2)tree).id+"\u001B[0m");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Declaration Exception : Undeclared variable: " + ((Idcall2)tree).id + "\u001B[0m");
                 return false;
             }else{
                 Table tdsactuel = new Table(tds.getId());
@@ -65,15 +65,15 @@ public class Expression {
                     return true;
                 }
                 else{
-                    System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type de la variable "+((Idcall2)tree).id+" incorrect dans l'expression: (attendu : "+typeAttendu+")\u001B[0m");
+                    System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Type of variable " + ((Idcall2)tree).id + " incorrect in the expression: (expected: " + typeAttendu + ")\u001B[0m");
                 }
             }
         }else if(name.equals("ast.Croexpr") && typeAttendu.equals("int")){
             return checktype(((Croexpr)tree).expr,"int",pile,tds);
-        }else if(name.equals("ast.AccesVar")){
+        }else if(name.equals("ast.AccessVar")){
             Table tdsactuel = new Table(tds.getId());
             tdsactuel=tdsactuel.joinTDS(pile);
-            String type = tdsactuel.getVarType(((AccesVar)tree).id).getType();
+            String type = tdsactuel.getVarType(((AccessVar)tree).id).getType();
             if(tdsactuel.getVarType(type)!=null){
                 if (Declaration.checkVardeclared(type,pile,tds,tree)){
                     type = tdsactuel.getType(type).getElementtype().get(0).replace(',',' ').trim();
@@ -115,7 +115,7 @@ public class Expression {
 
         }
         else{
-            System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : "+typeAttendu+")\u001B[0m\n");
+            System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: " + typeAttendu + ")\u001B[0m\n");
             return false;
         }
         return false;
@@ -142,10 +142,10 @@ public class Expression {
                 return true;
             }
         }
-        System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : int"+")\u001B[0m");
+        System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: int)" + "\u001B[0m");
         return false;
     }
-        
+
     public static boolean checktypesansPrint(Ast tree, String typeAttendu,Stack<Table> pile,Table tds) {
         if (tree == null) {
             return false;
@@ -157,7 +157,7 @@ public class Expression {
             if (typeAttendu.equals("int")){
                 return checktypeOp(tree,pile,tds);
             }
-            else if (typeAttendu.equals("string") || typeAttendu.equals("bool")){   
+            else if (typeAttendu.equals("string") || typeAttendu.equals("bool")){
                 return false;
             }
         }else if(name.equals("ast.In") && typeAttendu.equals("int")){
@@ -180,10 +180,10 @@ public class Expression {
             }
         }else if(name.equals("ast.Croexpr") && typeAttendu.equals("int")){
             return checktypesansPrint(((Croexpr)tree).expr,"int",pile,tds);
-        }else if(name.equals("ast.AccesVar")){
+        }else if(name.equals("ast.AccessVar")){
             Table tdsactuel = new Table(tds.getId());
             tdsactuel=tdsactuel.joinTDS(pile);
-            String type = tdsactuel.getVarType(((AccesVar)tree).id).getType();
+            String type = tdsactuel.getVarType(((AccessVar)tree).id).getType();
             if(tdsactuel.getVarType(type)!=null){
                 if (Declaration.checkVardeclared(type,pile,tds,tree)){
                     type = tdsactuel.getType(type).getElementtype().get(0).replace(',',' ').trim();
@@ -250,7 +250,7 @@ public class Expression {
                 return true;
             }
             else{
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : int ou string des deux côtés)\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: int or string on both sides)\u001B[0m\n");
                 return false;
             }
         }else if(name.equals("ast.Dif")){
@@ -264,7 +264,7 @@ public class Expression {
                 return true;
             }
             else{
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : int ou string des deux côtés)\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: int or string on both sides)\u001B[0m\n");
                 return false;
             }
         }else if(name.equals("ast.Expr1")){
@@ -272,7 +272,7 @@ public class Expression {
                 return true;
             }
             else{
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : bool)\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: bool)\u001B[0m\n");
                 return false;
             }
         }else if(name.equals("ast.Expr0")){
@@ -280,12 +280,12 @@ public class Expression {
                 return true;
             }
             else{
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : bool)\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: bool)\u001B[0m\n");
                 return false;
             }
         }
         else{
-            System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : int ou string des deux côtés)\u001B[0m\n");
+            System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: int or string on both sides)\u001B[0m\n");
             return false;
         }
     }
@@ -298,7 +298,7 @@ public class Expression {
         }
         else{
             if (!rightType.equals("") && !leftType.equals("")){
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression (attendu : "+leftType+" dans le membre droit de l'expression)\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the expression (expected: " + leftType + " in the right-hand side of the expression)\u001B[0m\n");
             }
             return false;
         }
@@ -323,7 +323,7 @@ public class Expression {
                 }
                 else{
                     return "";
-            }
+                }
             }
             if (Declaration.checkVardeclared(leftType+"."+fils, pile, tds,tree)){
                 return tdsActuelle.getVarType(leftType+"."+fils).getType();
@@ -331,17 +331,17 @@ public class Expression {
             else{
                 return "";
             }
-    
+
         }
         else if(name=="ast.Idcall2"){
             if (Declaration.checkVardeclared(((Idcall2)tree).id, pile, tds,tree)){
                 return tdsActuelle.getVar(((Idcall2)tree).id).getType();
             }
-            
+
         }
-        else if(name=="ast.AccesVar"){
-           if(Declaration.checkVardeclared(((AccesVar)tree).id, pile, tds,tree)){
-                String type = tdsActuelle.getVarType(((AccesVar)tree).id).getType();
+        else if(name=="ast.AccessVar"){
+            if(Declaration.checkVardeclared(((AccessVar)tree).id, pile, tds,tree)){
+                String type = tdsActuelle.getVarType(((AccessVar)tree).id).getType();
                 if(tdsActuelle.getVarType(type)!=null){
                     type = tdsActuelle.getVarType(type).getElementtype().get(0).replace(',',' ').trim();
                 }
@@ -368,7 +368,7 @@ public class Expression {
             return type;
         }
         else if (name.equals("ast.Mul") || name.equals("ast.Div") || name.equals("ast.Plus") || name.equals("ast.Minus"))
-            return "int";   
+            return "int";
         else if (name.equals("ast.Egal2") || name.equals("ast.Dif") || name.equals("ast.Inf") || name.equals("ast.Sup") || name.equals("ast.Infegal") || name.equals("ast.Supegal"))
             return "bool";
         return "";
@@ -390,13 +390,13 @@ public class Expression {
                         j++;
                     }
                     else{
-                        System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression Field: (attendu : "+tableactuel.getVarType(nametype+"."+field.id).getType()+")\u001B[0m\n");
+                        System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the Field expression (expected: " + tableactuel.getVarType(nametype + "." + field.id).getType() + ")\u001B[0m\n");
                         return false;
                     }
                 }
             }
             else{
-                System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"ExpressionException : Type incorrect dans l'expression Field: (attendu : "+tableactuel.getVarType(nametype+"."+field.id).getType()+")\u001B[0m\n");
+                System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Expression Exception : Incorrect type in the Field expression (expected: " + tableactuel.getVarType(nametype + "." + field.id).getType() + ")\u001B[0m\n");
                 return false;
             }
         }
@@ -404,7 +404,7 @@ public class Expression {
             return true;
         }
         return false;
-        
+
     }
 
     public static String replaceType(String type,Table tableactuel, String name){
@@ -424,9 +424,9 @@ public class Expression {
             }
 
         }
-            
+
     }
-        
+
 }
     
     

@@ -6,27 +6,28 @@ public class Inf implements Ast{
     }
     public Ast left;
     public Ast right;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
+
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
 
-    public Inf(Ast left, Ast right, int ligne, int colonne) {
+    public Inf(Ast left, Ast right, int line, int column) {
         this.left = left;
         this.right = right;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
 
     }
 }

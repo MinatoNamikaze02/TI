@@ -8,24 +8,24 @@ public class FdecWithoutfields implements Ast{
     }
    public String id;
    public Ast functiondeclaration;
-   public int ligne;
+    public int line;
 
-   public int colonne;
+    public int column;
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
-    public FdecWithoutfields(String id, Ast functiondeclaration, int ligne, int colonne){
+    public FdecWithoutfields(String id, Ast functiondeclaration, int line, int column){
         this.id = id;
         this.functiondeclaration = functiondeclaration;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
 
     }
 

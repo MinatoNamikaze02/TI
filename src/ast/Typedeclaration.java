@@ -6,26 +6,26 @@ public class Typedeclaration implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public Ast type;
     public Ast typeid;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typedeclaration (Ast typeid, Ast type, int ligne, int colonne){
+    public Typedeclaration (Ast typeid, Ast type, int line, int column){
         this.typeid = typeid;
         this.type = type;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }
 

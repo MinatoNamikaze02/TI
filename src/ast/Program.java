@@ -2,29 +2,29 @@ package ast;
 
 public class Program implements Ast{
 
-    // Utile pour la dernière partie
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public Ast expression;
-    public int ligne;
-    public int colonne;
+    public int line;
 
-    public Program(Ast expression, int ligne, int colonne){
+    public int column;
+
+    public Program(Ast expression, int line, int column){
         this.expression=expression;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 
 }

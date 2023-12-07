@@ -7,26 +7,26 @@ public class Let implements Ast {
     }
     public ArrayList<Ast> lefts;
     public Ast right;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
-    public Let(Ast right, int ligne, int colonne){
+    public Let(Ast right, int line, int column){
         this.lefts= new ArrayList<>();
         this.right=right;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 
     public void add_Ast(Ast left){

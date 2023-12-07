@@ -5,26 +5,26 @@ public class Appelfunc implements Ast{
         return visitor.visit(this);
     }
     public int getLine(){
-        return this.ligne;
+        return this.line;
     }
 
     public int getColumn(){
-        return this.colonne;
+        return this.column;
     }
 
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
     public Ast right;
     public String id;
     public Ast left;
 
-    public Appelfunc(String id,Ast right, int ligne, int colonne){
+    public Appelfunc(String id,Ast right, int line, int column){
         this.id=id;
         this.right= right;
         this.left=null;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
 
     }
 

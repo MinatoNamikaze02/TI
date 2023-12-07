@@ -7,24 +7,24 @@ public class Nil implements Ast {
 
 
     public String ni;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
-    public Nil(String ni, int ligne, int colonne) {
+    public Nil(String ni, int line, int column) {
         this.ni=ni;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 
 }

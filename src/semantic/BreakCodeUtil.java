@@ -4,30 +4,29 @@ import java.util.ArrayList;
 import ast.*;
 import ast.Exprseq;
 import ast.IfThen;
-import tds.ProcFonc;
+import tds.ProcFunc;
 import tds.Table;
 
-public class BreakCodeInutile {
+public class BreakCodeUtil {
     public static void checkBreak(Ast tree,String info){
-       String name = tree.getClass().getName().replace('\n', '\0');
-       //System.out.println(name);
-       if(name.equals("ast.Break")){
-        System.err.println("\033[0;33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+info+"CodeInutileWarning avec break: la boucle n'exécute pas le code \u001B[0m\n");
-        
-       }
-       if(name.equals("ast.Exprseq")){
+        String name = tree.getClass().getName().replace('\n', '\0');
+        //System.out.println(name);
+        if(name.equals("ast.Break")){
+            System.err.println("\033[0;33m"+"Line "+tree.getLine()+":"+tree.getColumn()+" : "+info+"Useless Code Warning with break: the loop does not execute the code \u001B[0m\n");
+        }
+        if(name.equals("ast.Exprseq")){
             ArrayList<Ast> seqExpr = ((Exprseq)tree).expr;
             boolean isBreak=false;
             for(int i=0; i< seqExpr.size();i++){
                 if(isBreak==true){
                     String nameExpr=((seqExpr.get(i)).getClass().getName().replace('\n', '\0'));
-                    System.err.println("\u001B[33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+info+"CodeInutileWarning avec break: l'expression "+nameExpr+" est jamais atteinte \u001B[0m\n");
+                    System.err.println("\u001B[33m"+"Line "+tree.getLine()+":"+tree.getColumn()+" : "+info+"Useless Code Warning with break: the expression "+nameExpr+" is never reached \u001B[0m\n");
                 }
                 if(((seqExpr.get(i)).getClass().getName().replace('\n', '\0')).equals("ast.Break")){
                     isBreak=true;
                 }
             }
-       }
+        }
     }
 
     public static void checkBreakIf(Ast tree, String info){
@@ -42,15 +41,15 @@ public class BreakCodeInutile {
     public static void checkBreakLet(Ast tree, String info){
         ArrayList<Ast> seqExpr =( (Exprseq)((Let)tree).right).expr;
         boolean isBreak=false;
-            for(int i=0; i< seqExpr.size();i++){
-                if(isBreak==true){
-                    String nameExpr=((seqExpr.get(i)).getClass().getName().replace('\n', '\0'));
-                    System.err.println("\033[0;33m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+info+"CodeInutileWarning avec break: l'expression "+nameExpr+" est jamais atteinte \u001B[0m\n");
-                }
-                if(((seqExpr.get(i)).getClass().getName().replace('\n', '\0')).equals("ast.Break")){
-                    isBreak=true;
-                }
+        for(int i=0; i< seqExpr.size();i++){
+            if(isBreak==true){
+                String nameExpr=((seqExpr.get(i)).getClass().getName().replace('\n', '\0'));
+                System.err.println("\u001B[31m" + "Line "+tree.getLine()+":"+tree.getColumn()+" : "+info+"Useless Code Warning with break: the expression "+nameExpr+" is never reached \u001B[0m\n");
             }
+            if(((seqExpr.get(i)).getClass().getName().replace('\n', '\0')).equals("ast.Break")){
+                isBreak=true;
+            }
+        }
     }
 
     public static void checkBreakDo(Ast tree, String info){
@@ -67,16 +66,16 @@ public class BreakCodeInutile {
     }
 
     public static void checkBreakWellPlaced(Table tdsActuelle,String nomtds,Ast tree){
-        ArrayList<ProcFonc> listeProcFonc = tdsActuelle.functions;
+        ArrayList<ProcFunc> listeProcFonc = tdsActuelle.functions;
         boolean wellplaced = false;
-        for(ProcFonc fonc : listeProcFonc){
-            if((fonc.getIdentifiant()).contains("While block") || (fonc.getIdentifiant()).contains("Boucle for")){
+        for(ProcFunc fonc : listeProcFonc){
+            if((fonc.getIdentifier()).contains("While block") || (fonc.getIdentifier()).contains("Boucle for")){
                 wellplaced=true;
             }
-        } 
+        }
         if(!wellplaced){
-            System.err.println("\u001B[31m"+"Ligne "+tree.getLine()+":"+tree.getColumn()+" : "+"BreakError : le break est mal placé\u001B[0m\n");
-               
+            System.err.println("\u001B[31m" + "Line " + tree.getLine() + ":" + tree.getColumn() + " : " + "Break Error : break statement is misplaced\u001B[0m\n");
+
         }
     }
 }

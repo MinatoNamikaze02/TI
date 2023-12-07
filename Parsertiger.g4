@@ -6,31 +6,48 @@ package parser;
 
 options {tokenVocab = Lexertiger;}
 
-// déclaration du programme
+// program declaration
 program : (expr)
     ;
 
-//prioriré de calcul
+// calculation priority
 
-expr0: expr1 (OU expr1 )*
-    ;
+expr0 : expr1 expr0Prime
+      ;
 
-expr1 : expr2  (ET expr2 )*
-    ;
+expr0Prime : OR expr1 expr0Prime
+           | // epsilon
+           ;
 
+expr1 : expr2 expr1Prime
+      ;
 
-expr2: expr3  ((EGAL | DIF | INF | SUP | INFEG | SUPEG | DPTEG) expr3 )?
-    ;
+expr1Prime : AND expr2 expr1Prime
+           | // epsilon
+           ;
 
+expr2 : expr3 expr2Prime
+      ;
 
-expr3: expr4 ((PLUS|NEG) expr4 )*
-    ;
+expr2Prime : (EQUAL | DIFF | LESS | GREATER | LESSEQ | GREATEREQ | EQUALTO) expr3
+           | // epsilon
+           ;
 
+expr3 : expr4 expr3Prime
+      ;
 
-expr4: expr5 ((MUL|DIV) expr5)*
-    ;
+expr3Prime : (PLUS | MINUS) expr4 expr3Prime
+           | // epsilon
+           ;
 
-//Expressions
+expr4 : expr5 expr4Prime
+      ;
+
+expr4Prime : (MUL | DIV) expr5 expr4Prime
+           | // epsilon
+           ;
+
+// Expressions
 
 expr5: idcall #Idcal
     | STRINGCONSTANT #Strin
@@ -51,12 +68,12 @@ expr :expr0 #ExprC
     |types #Typ
     ;
 
-//Définitions règles
+// Rule definitions
 
 print: PRINT PAOUV expr PAFER ;
 
 rulelse : ELSE expr #Else
-    |       #Vide
+    |       #Empty
     ;
 
 declaration : typedeclaration #TypeDec
@@ -64,7 +81,7 @@ declaration : typedeclaration #TypeDec
     |functiondeclaration    #FuncDec
     ;
 
-//fonctions
+// functions
 
 function: PAOUV exprlist? PAFER  #functio
     ;
@@ -72,30 +89,30 @@ function: PAOUV exprlist? PAFER  #functio
 functiondeclaration : FCT ID PAOUV (typefields)? PAFER functiondeclarationbis
     ;
 
-functiondeclarationbis : EGAL expr #egal
-    | DPT typeid EGAL expr  #typegal
-    ; 
+functiondeclarationbis : EGAL expr #equal
+    | DPT typeid EGAL expr  #typeequal
+    ;
 
-// Expressions sequence/Liste
+// Expression sequence/List
 
-exprnegation: NEG expr5 
+exprnegation: NEG expr5
     ;
 
 exprseq : expr exprseqbis
     ;
 
-exprseqbis : POINTV exprseq #pointexpr
-    |   #nul1
+exprseqbis : POINTV exprseq #dotexpr
+    |   #null1
     ;
 
 exprlist : expr exprlistbis
     ;
 
 exprlistbis: VIRG expr exprlistbis  #exprlisbis
-    |   #nul2
+    |   #null2
     ;
 
-//fields    
+// fields
 
 fieldlist : field fieldlistbis
     ;
@@ -104,24 +121,24 @@ field: ID EGAL expr
     ;
 
 fieldlistbis: VIRG field fieldlistbis  #fieldlisbis
-    |   #nul3
+    |   #null3
     ;
 
-//Id/Value
+// Id/Value
 
 idcall: ID (lvaluebis|function)
     ;
 
-lvaluebis :POINT ID lvaluebis #pointid
-    |CAOUV expr CAFER lvaluebis #croexpr
-    | #nul4
+lvaluebis :POINT ID lvaluebis #dotid
+    |CAOUV expr CAFER lvaluebis #bracketexpr
+    | #null4
     ;
 
 
 
-//Types    
+// Types
 
-types: typeid (CAOUV expr CAFER OF expr 
+types: typeid (CAOUV expr CAFER OF expr
     |CROUV fieldlist? CRFER)
     ;
 
@@ -136,7 +153,7 @@ typefields : typefield typefieldsbis
     ;
 
 typefieldsbis: VIRG typefields #virgtypefield
-    |   #nul5
+    |   #null5
     ;
 
 typefield : ID DPT typeid;
@@ -148,7 +165,7 @@ typeid : ID #typeidid
     |typepredefined #predefined
     ;
 
-//Variables
+// Variables
 
 variabledeclaration : VAR ID variabledeclarationbis
     ;
@@ -156,6 +173,3 @@ variabledeclaration : VAR ID variabledeclarationbis
 variabledeclarationbis: DPT typeid DPTEG expr  #vardec1
     | DPTEG expr #vardec2
     ;
-
-
-

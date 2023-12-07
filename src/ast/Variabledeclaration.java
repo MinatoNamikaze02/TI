@@ -7,27 +7,27 @@ public class Variabledeclaration implements Ast{
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public String id;
     public Ast bis;
-    public int ligne;
+    public int line;
 
-    public int colonne;
-    
+    public int column;
 
 
-    public Variabledeclaration(String id, Ast bis, int ligne, int colonne){
+
+    public Variabledeclaration(String id, Ast bis, int line, int column){
         this.id = id;
         this.bis = bis;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }

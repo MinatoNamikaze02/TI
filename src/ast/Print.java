@@ -6,22 +6,22 @@ public class Print implements Ast {
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
     public Ast fils;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Print( Ast fils, int ligne, int colonne){
+    public Print( Ast fils, int line, int column){
         this.fils=fils;
-        this.ligne=ligne;
-        this.colonne=colonne;
+        this.line=line;
+        this.column=column;
     }
 }

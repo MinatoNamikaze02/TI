@@ -2,31 +2,32 @@ package ast;
 
 import java.util.ArrayList;
 
+
 public class Fieldlist implements Ast{
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
     
     public ArrayList<Ast> field;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
-    public Fieldlist(ArrayList<Ast> field, int ligne, int colonne){
+    public Fieldlist(ArrayList<Ast> field, int line, int column){
         this.field = field;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
 }

@@ -6,28 +6,28 @@ public class Typegal implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public Ast typeid;
     public String eg;
     public Ast expr;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typegal( Ast typeid, String eg, Ast expr, int ligne, int colonne){
+    public Typegal( Ast typeid, String eg, Ast expr, int line, int column){
         this.typeid = typeid;
         this.eg = eg;
         this.expr = expr;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
 }

@@ -6,26 +6,26 @@ public class Typefield implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
     
     public String id;
     public Ast type;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typefield(String id, Ast type, int ligne, int colonne){
+    public Typefield(String id, Ast type, int line, int column){
         this.id = id;
         this.type = type;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }
 

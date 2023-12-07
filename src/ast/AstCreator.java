@@ -588,7 +588,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 				return new Appelfunc(id,ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
 			}
 			else if (list.get(0).charAt(0)=='['){
-				return new AccesVar(id, ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
+				return new AccessVar(id, ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
 			}
 			else if (list.get(0).charAt(0)=='.'){
 				return new Pointid(id, ctx.getChild(1).getText(),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
@@ -611,7 +611,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 				}
 				String actuel = list.remove(list.size()-1);
 			if (actuel.charAt(0)=='['){
-				return new AccesVar(recursiveAppel(list, id, ctx,taillelist,ctx2),temp.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
+				return new AccessVar(recursiveAppel(list, id, ctx,taillelist,ctx2),temp.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
 			}
 			else{
 				

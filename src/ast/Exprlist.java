@@ -7,25 +7,25 @@ public class Exprlist implements Ast{
         return visitor.visit(this);
     }
     public ArrayList<Ast> expr;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
-    public Exprlist(ArrayList<Ast> expr, int ligne, int colonne){
+    public Exprlist(ArrayList<Ast> expr, int line, int column){
         this.expr = expr;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
 }

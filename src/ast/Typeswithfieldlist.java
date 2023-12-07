@@ -8,25 +8,25 @@ public class Typeswithfieldlist implements Ast{
 
     public Ast typeid;
     public Ast fieldlist;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Typeswithfieldlist(Ast typeid, Ast fieldlist, int ligne, int colonne){
+    public Typeswithfieldlist(Ast typeid, Ast fieldlist, int line, int column){
         this.typeid = typeid;
         this.fieldlist = fieldlist;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 

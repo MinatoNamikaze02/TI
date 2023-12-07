@@ -7,25 +7,24 @@ public class Field implements Ast{
     
     public Ast expr;
     public String id;
-    public int ligne;
+    public int line;
 
-    public int colonne;
-
+    public int column;
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
-    public Field(Ast expr, String id, int ligne, int colonne){
+    public Field(Ast expr, String id, int line, int column){
         this.expr = expr;
         this.id = id;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }

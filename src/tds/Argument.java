@@ -2,10 +2,10 @@ package tds;
 
 public class Argument{
     public String type;
-    public String  nom;
+    public String name;
 
-    public Argument(String nom, String type){
-        this.nom=nom;
+    public Argument(String name, String type){
+        this.name=name;
         this.type=type;
     }
 
@@ -16,11 +16,11 @@ public class Argument{
         this.type=type;
     }
 
-    public String getNom(){
-        return this.nom;
+    public String getName(){
+        return this.name;
     }
-    public void setNom(String nom){
-        this.nom=nom;
+    public void setName(String nom){
+        this.name=name;
     }
 
 

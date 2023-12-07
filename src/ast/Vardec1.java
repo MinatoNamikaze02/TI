@@ -7,25 +7,26 @@ public class Vardec1 implements Ast{
 
     public Ast expr;
     public Ast typeid;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Vardec1(Ast typeid, Ast expr, int ligne, int colonne) {
+
+    public Vardec1(Ast typeid, Ast expr, int line, int column) {
         this.expr = expr;
         this.typeid = typeid;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
 
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 }

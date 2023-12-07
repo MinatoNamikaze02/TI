@@ -6,35 +6,35 @@ public class Pointid implements Ast{
     }
     @Override
     public int getLine() {
-        return this.ligne;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return this.colonne;
+        return this.column;
     }
 
 
     public String id;
     public String fils;
     public Ast left;
-    public int ligne;
+    public int line;
 
-    public int colonne;
+    public int column;
 
-    public Pointid (String id, String fils, int ligne, int colonne){
+    public Pointid (String id, String fils, int line, int column){
         this.id = id;
         this.fils = fils;
         this.left = null;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 
-    public Pointid (Ast left, String fils, int ligne, int colonne){
+    public Pointid (Ast left, String fils, int line, int column){
         this.left = left;
         this.fils = fils;
         this.id = null;
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.line = line;
+        this.column = column;
     }
 }
