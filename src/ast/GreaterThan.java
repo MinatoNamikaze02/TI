@@ -1,20 +1,17 @@
 package ast;
 
-public class Dptegal implements Ast{
-
+public class GreaterThan implements Ast {
+    public <T> T accept(AstVisitor<T> visitor){
+        return visitor.visit(this);
+    }
     @Override
     public int getLine() {
-        return 0;
+        return this.line;
     }
 
     @Override
     public int getColumn() {
-        return 0;
-    }
-
-   
-    public <T> T accept(AstVisitor<T> visitor){
-        return visitor.visit(this);
+        return this.column;
     }
 
     public Ast left;
@@ -24,14 +21,10 @@ public class Dptegal implements Ast{
     public int column;
 
 
-    public Dptegal(Ast left, Ast right, int line, int column) {
+    public GreaterThan(Ast left, Ast right, int line, int column) {
         this.left = left;
         this.right = right;
         this.line = line;
         this.column = column;
     }
-    
-
-
-
 }

@@ -10,8 +10,8 @@ public class AccessList {
         String name = tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.AccessVar")){
             String nomListe = ((AccessVar)tree).id;
-            if(((AccessVar)(tree)).right instanceof In){
-                In valeur1= (In)((AccessVar)(tree)).right;
+            if(((AccessVar)(tree)).right instanceof Const){
+                Const valeur1= (Const)((AccessVar)(tree)).right;
                 int valeurbis = valeur1.in;
                 Table tableactuel = new Table(tds.getId());
                 tableactuel.joinTDS(pile);

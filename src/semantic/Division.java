@@ -7,8 +7,8 @@ import tds.Table;
 public class Division {
     public static boolean checkDiviseur(Stack<Table> pile, Table tds, Ast tree){
 
-        if(tree instanceof In){
-            int div = ((In)tree).in;
+        if(tree instanceof Const){
+            int div = ((Const)tree).in;
             if(div==0){
                 return true;
             }

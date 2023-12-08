@@ -5,21 +5,21 @@ public class SimplificationCalcul {
     public static int checkSimplification(Ast tree){
         String name =tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.Plus")){
-            if(((Plus)tree).left instanceof In && ((Plus)tree).right instanceof In){
-                In gauche = (In) ((Plus)tree).left;
-                In droit = (In) ((Plus)tree).right;
+            if(((Plus)tree).left instanceof Const && ((Plus)tree).right instanceof Const){
+                Const gauche = (Const) ((Plus)tree).left;
+                Const droit = (Const) ((Plus)tree).right;
 
                 int gauche1= gauche.in;
                 int droit1=droit.in;
                 return gauche1+droit1;
             }
-            else if(((Plus)tree).left instanceof In && !(((Plus)tree).right instanceof In)){
-                In gauche = (In) ((Plus)tree).left;
+            else if(((Plus)tree).left instanceof Const && !(((Plus)tree).right instanceof Const)){
+                Const gauche = (Const) ((Plus)tree).left;
                 int gauche1= gauche.in;
                 return gauche1+ checkSimplification(((Plus)tree).right);
             }
-            else if(!(((Plus)tree).left instanceof In) && (((Plus)tree).right instanceof In)){
-                In droit = (In) ((Plus)tree).right;
+            else if(!(((Plus)tree).left instanceof Const) && (((Plus)tree).right instanceof Const)){
+                Const droit = (Const) ((Plus)tree).right;
                 int droit1= droit.in;
                 return droit1+ checkSimplification(((Plus)tree).left);
             }
@@ -28,20 +28,20 @@ public class SimplificationCalcul {
             }
         }
         else if(name.equals("ast.Minus")){
-            if(((Minus)tree).left instanceof In && ((Minus)tree).right instanceof In){
-                In gauche = (In) ((Minus)tree).left;
-                In droit = (In) ((Minus)tree).right;
+            if(((Minus)tree).left instanceof Const && ((Minus)tree).right instanceof Const){
+                Const gauche = (Const) ((Minus)tree).left;
+                Const droit = (Const) ((Minus)tree).right;
                 int gauche1= gauche.in;
                 int droit1=droit.in;
                 return gauche1-droit1;
             }
-            else if(((Minus)tree).left instanceof In && !(((Minus)tree).right instanceof In)){
-                In gauche = (In) ((Minus)tree).left;
+            else if(((Minus)tree).left instanceof Const && !(((Minus)tree).right instanceof Const)){
+                Const gauche = (Const) ((Minus)tree).left;
                 int gauche1= gauche.in;
                 return gauche1- checkSimplification(((Minus)tree).right);
             }
-            else if(!(((Minus)tree).left instanceof In) && (((Minus)tree).right instanceof In)){
-                In droit = (In) ((Minus)tree).right;
+            else if(!(((Minus)tree).left instanceof Const) && (((Minus)tree).right instanceof Const)){
+                Const droit = (Const) ((Minus)tree).right;
                 int droit1= droit.in;
                 return checkSimplification(((Minus)tree).left)-droit1;
             }
@@ -50,20 +50,20 @@ public class SimplificationCalcul {
             }
         }
         else if(name.equals("ast.Mul")){
-            if(((Mul)tree).left instanceof In && ((Mul)tree).right instanceof In){
-                In gauche = (In) ((Mul)tree).left;
-                In droit = (In) ((Mul)tree).right;
+            if(((Mul)tree).left instanceof Const && ((Mul)tree).right instanceof Const){
+                Const gauche = (Const) ((Mul)tree).left;
+                Const droit = (Const) ((Mul)tree).right;
                 int gauche1= gauche.in;
                 int droit1=droit.in;
                 return gauche1*droit1;
             }
-            else if(((Mul)tree).left instanceof In && !(((Mul)tree).right instanceof In)){
-                In gauche = (In) ((Mul)tree).left;
+            else if(((Mul)tree).left instanceof Const && !(((Mul)tree).right instanceof Const)){
+                Const gauche = (Const) ((Mul)tree).left;
                 int gauche1= gauche.in;
                 return gauche1* checkSimplification(((Mul)tree).right);
             }
-            else if(!(((Mul)tree).left instanceof In) && (((Mul)tree).right instanceof In)){
-                In droit = (In) ((Mul)tree).right;
+            else if(!(((Mul)tree).left instanceof Const) && (((Mul)tree).right instanceof Const)){
+                Const droit = (Const) ((Mul)tree).right;
                 int droit1= droit.in;
                 return checkSimplification(((Mul)tree).left)*droit1;
             }
@@ -72,20 +72,20 @@ public class SimplificationCalcul {
             }
         }
         else if(name.equals("ast.Div")){
-            if(((Div)tree).left instanceof In && ((Div)tree).right instanceof In){
-                In gauche = (In) ((Div)tree).left;
-                In droit = (In) ((Div)tree).right;
+            if(((Div)tree).left instanceof Const && ((Div)tree).right instanceof Const){
+                Const gauche = (Const) ((Div)tree).left;
+                Const droit = (Const) ((Div)tree).right;
                 int gauche1= gauche.in;
                 int droit1=droit.in;
                 return gauche1/droit1;
             }
-            else if(((Div)tree).left instanceof In && !(((Div)tree).right instanceof In)){
-                In gauche = (In) ((Div)tree).left;
+            else if(((Div)tree).left instanceof Const && !(((Div)tree).right instanceof Const)){
+                Const gauche = (Const) ((Div)tree).left;
                 int gauche1= gauche.in;
                 return gauche1 / checkSimplification(((Div)tree).right);
             }
-            else if(!(((Div)tree).left instanceof In) && (((Div)tree).right instanceof In)){
-                In droit = (In) ((Div)tree).right;
+            else if(!(((Div)tree).left instanceof Const) && (((Div)tree).right instanceof Const)){
+                Const droit = (Const) ((Div)tree).right;
                 int droit1= droit.in;
                 return checkSimplification(((Div)tree).left)/droit1;
             }

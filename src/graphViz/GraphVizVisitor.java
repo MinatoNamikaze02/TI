@@ -8,11 +8,11 @@ import ast.Program ;
  import ast.Expr0 ;
  import ast.Expr1 ;
  import ast.Strin ;
-import ast.Sup;
-import ast.Supeg;
-import ast.In ;
-import ast.Inf;
-import ast.Infeg;
+import ast.GreaterThan;
+import ast.GreaterThanEq;
+import ast.Const;
+import ast.LessThan;
+import ast.LessThanOrEq;
 import ast.Nil ;
 import ast.Plus;
  import ast.IfThen ;
@@ -24,9 +24,9 @@ import ast.Minus;
 import ast.Mul;
 import ast.Print ;
  import ast.Functiondeclaration ;
- import ast.Egal ;
-import ast.Egal2;
-import ast.Typegal ;
+ import ast.Equal;
+import ast.Equal2;
+import ast.TypeEqual;
  import ast.Exprnegation ;
  import ast.Exprseq ;
 import ast.FdecWithoutfields;
@@ -37,10 +37,10 @@ import ast.AccessVar;
 import ast.Appelfunc ;
 import ast.Idcall2;
 import ast.Pointid ;
- import ast.Croexpr ;
+ import ast.Brack;
 import ast.Dif;
 import ast.Div;
-import ast.Dptegal;
+import ast.Assign;
 import ast.Typedeclaration ;
  import ast.Typefields ;
  import ast.Typefield ;
@@ -139,7 +139,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(In affect) {
+    public String visit(Const affect) {
         String nodeIdentifier = this.nextState();
         this.addNodeTerm(nodeIdentifier, String.valueOf(affect.in));
         return nodeIdentifier;
@@ -257,7 +257,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Egal affect) {
+    public String visit(Equal affect) {
         String nodeIdentifier = this.nextState();
         this.addNode(nodeIdentifier, "=");
         String expr = affect.expr.accept(this);
@@ -267,7 +267,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Typegal affect) {
+    public String visit(TypeEqual affect) {
         String nodeIdentifier = this.nextState();
         this.addNode(nodeIdentifier, "Equal Type");
         String typeid = affect.typeid.accept(this);
@@ -407,7 +407,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Croexpr affect) {
+    public String visit(Brack affect) {
         String nodeIdentifier = this.nextState();
         this.addNode(nodeIdentifier, "BracketExpression");
         String expr = affect.expr.accept(this);
@@ -553,7 +553,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Inf affect) {
+    public String visit(LessThan affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);
@@ -568,7 +568,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Sup affect) {
+    public String visit(GreaterThan affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);
@@ -583,7 +583,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Infeg affect) {
+    public String visit(LessThanOrEq affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);
@@ -598,7 +598,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Supeg affect) {
+    public String visit(GreaterThanEq affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);
@@ -685,7 +685,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Egal2 affect) {
+    public String visit(Equal2 affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);
@@ -745,7 +745,7 @@ public class GraphVizVisitor implements AstVisitor<String> {
     }
 
     @Override
-    public String visit(Dptegal affect) {
+    public String visit(Assign affect) {
         String nodeIdentifier = this.nextState();
 
         String leftState = affect.left.accept(this);

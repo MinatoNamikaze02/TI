@@ -1,6 +1,6 @@
 package ast;
 
-public class Appelfunc implements Ast{
+public class FuncCall implements Ast{
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
@@ -19,7 +19,7 @@ public class Appelfunc implements Ast{
     public String id;
     public Ast left;
 
-    public Appelfunc(String id,Ast right, int line, int column){
+    public FuncCall(String id,Ast right, int line, int column){
         this.id=id;
         this.right= right;
         this.left=null;
@@ -28,7 +28,7 @@ public class Appelfunc implements Ast{
 
     }
 
-    public Appelfunc(Ast left, Ast right){
+    public FuncCall(Ast left, Ast right){
         this.left=left;
         this.right=right;
         this.id=null;

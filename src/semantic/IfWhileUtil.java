@@ -14,10 +14,10 @@ public class IfWhileUtil {
         }
         else{
             if(name.equals("ast.Inf")){
-                if(((Inf)(tree)).left instanceof In && ((Inf)(tree)).right instanceof In){
-                    In gauche =(In) ((Inf)(tree)).left;
+                if(((LessThan)(tree)).left instanceof Const && ((LessThan)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((LessThan)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Inf)(tree)).right;
+                    Const droit =(Const) ((LessThan)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1<droit1){
 
@@ -33,10 +33,10 @@ public class IfWhileUtil {
 
             }
             else if(name.equals("ast.Sup")){
-                if(((Sup)(tree)).left instanceof In && ((Sup)(tree)).right instanceof In){
-                    In gauche =(In)((Sup)(tree)).left;
+                if(((GreaterThan)(tree)).left instanceof Const && ((GreaterThan)(tree)).right instanceof Const){
+                    Const gauche =(Const)((GreaterThan)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Sup)(tree)).right;
+                    Const droit =(Const) ((GreaterThan)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1>droit1){
                         return true;
@@ -50,11 +50,11 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Egal2")){
-                if(((Egal2)(tree)).left instanceof In && ((Egal2)(tree)).right instanceof In){
+                if(((Equal2)(tree)).left instanceof Const && ((Equal2)(tree)).right instanceof Const){
 
-                    In gauche =(In) ((Egal2)(tree)).left;
+                    Const gauche =(Const) ((Equal2)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Egal2)(tree)).right;
+                    Const droit =(Const) ((Equal2)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1==droit1){
                         return true;
@@ -63,10 +63,10 @@ public class IfWhileUtil {
                         return false;
                     }
                 }
-                else if(((Egal2)(tree)).left instanceof Strin && ((Egal2)(tree)).right instanceof Strin){
-                    Strin gauche =(Strin)((Egal2)(tree)).left;
+                else if(((Equal2)(tree)).left instanceof Strin && ((Equal2)(tree)).right instanceof Strin){
+                    Strin gauche =(Strin)((Equal2)(tree)).left;
                     String gauche1 = gauche.strin;
-                    Strin droit = (Strin)((Egal2)(tree)).right;
+                    Strin droit = (Strin)((Equal2)(tree)).right;
                     String droit1 = droit.strin;
                     if(gauche1.equals(droit1)){
                         return true;
@@ -80,10 +80,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Dif")){
-                if(((Dif)(tree)).left instanceof In && ((Dif)(tree)).right instanceof In){
-                    In gauche =(In) ((Dif)(tree)).left;
+                if(((Dif)(tree)).left instanceof Const && ((Dif)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((Dif)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Dif)(tree)).right;
+                    Const droit =(Const) ((Dif)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1!=droit1){
                         return true;
@@ -109,10 +109,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Infeg")){
-                if(((Infeg)(tree)).left instanceof In && ((Infeg)(tree)).right instanceof In){
-                    In gauche =(In) ((Infeg)(tree)).left;
+                if(((LessThanOrEq)(tree)).left instanceof Const && ((LessThanOrEq)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((LessThanOrEq)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Infeg)(tree)).right;
+                    Const droit =(Const) ((LessThanOrEq)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1<=droit1){
                         return true;
@@ -126,10 +126,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Supeg")){
-                if(((Supeg)(tree)).left instanceof In && ((Supeg)(tree)).right instanceof In){
-                    In gauche =(In) ((Supeg)(tree)).left;
+                if(((GreaterThanEq)(tree)).left instanceof Const && ((GreaterThanEq)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((GreaterThanEq)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Supeg)(tree)).right;
+                    Const droit =(Const) ((GreaterThanEq)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1>=droit1){
                         return true;
@@ -157,10 +157,10 @@ public class IfWhileUtil {
         }
         else{
             if(name.equals("ast.Inf")){
-                if(((Inf)(tree)).left instanceof In && ((Inf)(tree)).right instanceof In){
-                    In gauche =(In) ((Inf)(tree)).left;
+                if(((LessThan)(tree)).left instanceof Const && ((LessThan)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((LessThan)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Inf)(tree)).right;
+                    Const droit =(Const) ((LessThan)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1>=droit1){
 
@@ -176,10 +176,10 @@ public class IfWhileUtil {
 
             }
             else if(name.equals("ast.Sup")){
-                if(((Sup)(tree)).left instanceof In && ((Sup)(tree)).right instanceof In){
-                    In gauche =(In)((Sup)(tree)).left;
+                if(((GreaterThan)(tree)).left instanceof Const && ((GreaterThan)(tree)).right instanceof Const){
+                    Const gauche =(Const)((GreaterThan)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Sup)(tree)).right;
+                    Const droit =(Const) ((GreaterThan)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1<=droit1){
                         return true;
@@ -193,11 +193,11 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Egal2")){
-                if(((Egal2)(tree)).left instanceof In && ((Egal2)(tree)).right instanceof In){
+                if(((Equal2)(tree)).left instanceof Const && ((Equal2)(tree)).right instanceof Const){
 
-                    In gauche =(In) ((Egal2)(tree)).left;
+                    Const gauche =(Const) ((Equal2)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Egal2)(tree)).right;
+                    Const droit =(Const) ((Equal2)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1!=droit1){
                         return true;
@@ -206,10 +206,10 @@ public class IfWhileUtil {
                         return false;
                     }
                 }
-                else if(((Egal2)(tree)).left instanceof Strin && ((Egal2)(tree)).right instanceof Strin){
-                    Strin gauche =(Strin)((Egal2)(tree)).left;
+                else if(((Equal2)(tree)).left instanceof Strin && ((Equal2)(tree)).right instanceof Strin){
+                    Strin gauche =(Strin)((Equal2)(tree)).left;
                     String gauche1 = gauche.strin;
-                    Strin droit = (Strin)((Egal2)(tree)).right;
+                    Strin droit = (Strin)((Equal2)(tree)).right;
                     String droit1 = droit.strin;
                     if(!gauche1.equals(droit1)){
                         return true;
@@ -223,10 +223,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Dif")){
-                if(((Dif)(tree)).left instanceof In && ((Dif)(tree)).right instanceof In){
-                    In gauche =(In) ((Dif)(tree)).left;
+                if(((Dif)(tree)).left instanceof Const && ((Dif)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((Dif)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Dif)(tree)).right;
+                    Const droit =(Const) ((Dif)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1==droit1){
                         return true;
@@ -252,10 +252,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Infeg")){
-                if(((Infeg)(tree)).left instanceof In && ((Infeg)(tree)).right instanceof In){
-                    In gauche =(In) ((Infeg)(tree)).left;
+                if(((LessThanOrEq)(tree)).left instanceof Const && ((LessThanOrEq)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((LessThanOrEq)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Infeg)(tree)).right;
+                    Const droit =(Const) ((LessThanOrEq)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1>droit1){
                         return true;
@@ -269,10 +269,10 @@ public class IfWhileUtil {
                 }
             }
             else if(name.equals("ast.Supeg")){
-                if(((Supeg)(tree)).left instanceof In && ((Supeg)(tree)).right instanceof In){
-                    In gauche =(In) ((Supeg)(tree)).left;
+                if(((GreaterThanEq)(tree)).left instanceof Const && ((GreaterThanEq)(tree)).right instanceof Const){
+                    Const gauche =(Const) ((GreaterThanEq)(tree)).left;
                     int gauche1 = gauche.in;
-                    In droit =(In) ((Supeg)(tree)).right;
+                    Const droit =(Const) ((GreaterThanEq)(tree)).right;
                     int droit1 = droit.in;
                     if(gauche1<droit1){
                         return true;

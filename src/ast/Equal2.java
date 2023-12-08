@@ -1,9 +1,11 @@
 package ast;
 
-public class Infeg implements Ast{
+public class Equal2 implements Ast{
+
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
+
 
     public Ast left;
     public Ast right;
@@ -22,7 +24,7 @@ public class Infeg implements Ast{
     }
 
 
-    public Infeg(Ast left, Ast right, int line, int column) {
+    public Equal2(Ast left, Ast right, int line, int column) {
         this.left = left;
         this.right = right;
         this.line = line;

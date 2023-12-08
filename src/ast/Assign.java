@@ -1,17 +1,20 @@
 package ast;
 
-public class Sup implements Ast {
-    public <T> T accept(AstVisitor<T> visitor){
-        return visitor.visit(this);
-    }
+public class Assign implements Ast{
+
     @Override
     public int getLine() {
-        return this.line;
+        return 0;
     }
 
     @Override
     public int getColumn() {
-        return this.column;
+        return 0;
+    }
+
+   
+    public <T> T accept(AstVisitor<T> visitor){
+        return visitor.visit(this);
     }
 
     public Ast left;
@@ -21,10 +24,14 @@ public class Sup implements Ast {
     public int column;
 
 
-    public Sup(Ast left, Ast right, int line, int column) {
+    public Assign(Ast left, Ast right, int line, int column) {
         this.left = left;
         this.right = right;
         this.line = line;
         this.column = column;
     }
+    
+
+
+
 }

@@ -142,7 +142,7 @@ public class Table {
 		if(!checkAlreadyExist(var)){
             this.variables.add(var);
             var.setTableID(this.id);
-            if (var.getDeplacement() == 0 && var.isLocal()) { // Si own, on a deja la variable ailleurs pas besoin de la mettre dans la pile
+            if (var.getDeplacement() == 0 && var.isLocal()) {
                 var.setDeplacement(var_depl);
                 var_depl++;
             
@@ -171,30 +171,7 @@ public class Table {
         return null;
     }
 
-    public void addArray(VarType var) {
-		if(!checkAlreadyExist(var)){
-            this.variables.add(var);
-            var.setTableID(this.id);
-            if (var.getDeplacement() == 0 && var.isLocal()) { // Si own, on a deja la variable ailleurs pas besoin de la mettre dans la pile
-                var.setDeplacement(var_depl);
-                arr_depl++;
-            
-            }
-        }
-    }
-    
-    public void addArg(VarType var) {
-		if(!checkAlreadyExist(var)){
-            this.variables.add(var);
-            var.setTableID(this.id);
-            if (var.getDeplacement() == 0 && var.isLocal()) {
-                var.setDeplacement(arg_depl);
-                arg_depl--;
-            }
-        }
-	}
-	
-	public void addProcFonc(ProcFunc fct , Ast tree) {
+    public void addProcFonc(ProcFunc fct , Ast tree) {
 		if(!checkAlreadyExist(fct)){
             this.functions.add(fct);
             fct.setTableID(this.id);
@@ -266,7 +243,7 @@ public class Table {
                 if(!checkAlreadyExist(var)){
                     newTDS.variables.add(var);
                     var.setTableID(this.id);
-                    if (var.getDeplacement() == 0 && var.isLocal()) { // Si own, on a deja la variable ailleurs pas besoin de la mettre dans la pile
+                    if (var.getDeplacement() == 0 && var.isLocal()) {
                         var.setDeplacement(var_depl);
                         var_depl++;
                     }

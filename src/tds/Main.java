@@ -31,7 +31,7 @@ public class Main {
         try {
 
             // Loading the file and constructing the parser
-            CharStream input = CharStreams.fromFileName("/Users/arjuns/IdeaProjects/Back-End-Tiger-Compiler/examples/input.tig");
+            CharStream input = CharStreams.fromFileName("/Users/arjuns/IdeaProjects/TigerCompilerDesign/examples/type_err.tig");
             Lexertiger lexer = new Lexertiger(input);
             CommonTokenStream stream = new CommonTokenStream(lexer);
             Parsertiger parser = new Parsertiger(stream);

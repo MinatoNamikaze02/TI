@@ -1,15 +1,14 @@
 package ast;
 
-public class Inf implements Ast{
+public class Const implements Ast{
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
-    public Ast left;
-    public Ast right;
+
+    public int in;
     public int line;
 
     public int column;
-
 
     @Override
     public int getLine() {
@@ -22,12 +21,10 @@ public class Inf implements Ast{
     }
 
 
-
-    public Inf(Ast left, Ast right, int line, int column) {
-        this.left = left;
-        this.right = right;
-        this.line = line;
-        this.column = column;
-
+    public Const(int in, int line, int column){
+        this.in=in;
+        this.line=line;
+        this.column=column;
     }
+
 }

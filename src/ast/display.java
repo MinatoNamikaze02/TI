@@ -16,7 +16,7 @@ public class display {
             
             JFrame astframe = new JFrame("AST");
             JPanel astpanel = new JPanel();
-            Image image = new ImageIcon("./out/tree.png").getImage();
+            Image image = new ImageIcon("./out/output.png").getImage();
             int width = image.getWidth(null);
             int height = image.getHeight(null);
             double min = Math.min(1800/(double)width, 700/(double)height);

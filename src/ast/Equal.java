@@ -1,7 +1,7 @@
 package ast;
 
-public class Croexpr implements Ast{
-    
+public class Equal implements Ast{
+
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
@@ -12,16 +12,15 @@ public class Croexpr implements Ast{
     public int getColumn(){
         return this.column;
     }
-    
+
+    public String eg;
     public Ast expr;
-    public Ast lvaluebis;
     public int line;
 
     public int column;
-
-    public Croexpr (Ast expr, Ast lvaluebi, int line, int column){
+    public Equal(String eg, Ast expr, int line, int column){
+        this.eg = eg;
         this.expr = expr;
-        this.lvaluebis = lvaluebi;
         this.line = line;
         this.column = column;
     }

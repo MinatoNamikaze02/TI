@@ -88,25 +88,25 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 
             switch (operation) {
                 case "=":
-                    noeudTemporaire = new Egal2(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+                    noeudTemporaire = new Equal2(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
                 case "<>":
                     noeudTemporaire = new Dif(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
 				case "<":
-                    noeudTemporaire = new Inf(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+                    noeudTemporaire = new LessThan(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
 				case ">":
-                    noeudTemporaire = new Sup(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+                    noeudTemporaire = new GreaterThan(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
 				case "<=":
-                    noeudTemporaire = new Infeg(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+                    noeudTemporaire = new LessThanOrEq(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
 				case ">=":
-                    noeudTemporaire = new Supeg(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+                    noeudTemporaire = new GreaterThanEq(noeudTemporaire,right,ctx.start.getLine(),ctx.start.getCharPositionInLine());
                     break;
 				case ":=":
-					noeudTemporaire = new Dptegal(noeudTemporaire, right, ctx.start.getLine(), ctx.start.getCharPositionInLine());
+					noeudTemporaire = new Assign(noeudTemporaire, right, ctx.start.getLine(), ctx.start.getCharPositionInLine());
                 default:
                     break;
             }
@@ -204,7 +204,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public Ast visitIn(Parsertiger.InContext ctx) { 
-		return new In(Integer.parseInt(ctx.getChild(0).toString()),ctx.start.getLine(),ctx.start.getCharPositionInLine());
+		return new Const(Integer.parseInt(ctx.getChild(0).toString()),ctx.start.getLine(),ctx.start.getCharPositionInLine());
 	}
 	/**
 	 * {@inheritDoc}
@@ -433,7 +433,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 	@Override public Ast visitEgal(Parsertiger.EgalContext ctx) { 
 		String eg = ctx.getChild(0).getText();
 		Ast expr = ctx.getChild(1).accept(this);
-		return new Egal(eg, expr,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+		return new Equal(eg, expr,ctx.start.getLine(),ctx.start.getCharPositionInLine());
 	}
 	/**
 	 * {@inheritDoc}
@@ -445,7 +445,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 		Ast typeid = ctx.getChild(1).accept(this);
 		String eg = ctx.getChild(2).getText();
 		Ast expr = ctx.getChild(3).accept(this);
-		return new Typegal(typeid, eg, expr,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+		return new TypeEqual(typeid, eg, expr,ctx.start.getLine(),ctx.start.getCharPositionInLine());
 	}
 	/**
 	 * {@inheritDoc}
@@ -585,7 +585,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 
 		if (list.size()==1){
 			if (list.get(0).charAt(0)=='('){
-				return new Appelfunc(id,ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
+				return new FuncCall(id,ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
 			}
 			else if (list.get(0).charAt(0)=='['){
 				return new AccessVar(id, ctx.getChild(1).accept(this),ctx2.start.getLine(),ctx2.start.getCharPositionInLine());
@@ -639,7 +639,7 @@ public class AstCreator extends ParsertigerBaseVisitor<Ast>{
 		if (ctx.getChild(3).getChild(0)!=null){
 			Ast expr= ctx.getChild(1).accept(this);
 			Ast lvaluebis = ctx.getChild(3).accept(this);
-			return new Croexpr(expr, lvaluebis,ctx.start.getLine(),ctx.start.getCharPositionInLine());
+			return new Brack(expr, lvaluebis,ctx.start.getLine(),ctx.start.getCharPositionInLine());
 		}
 		else {
 			return ctx.getChild(1).accept(this);}

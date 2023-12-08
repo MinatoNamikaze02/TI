@@ -5,12 +5,12 @@ import tds.Table;
 
 public class ForLoop {
     public static boolean CheckBorneMinInfBorneMax(Ast min, Ast max, Table tds){
-        if(min instanceof In && max instanceof In){
+        if(min instanceof Const && max instanceof Const){
             String nameMin =min.getClass().getName().replace('\n', '\0');
             String nameMax =max.getClass().getName().replace('\n', '\0');
             if(nameMin.equals("ast.In") && nameMax.equals("ast.In")){
-                int minInt = ((In)min).in;
-                int maxInt = ((In)max).in;
+                int minInt = ((Const)min).in;
+                int maxInt = ((Const)max).in;
                 if(minInt<=maxInt){
                     return true;
                 }
@@ -24,12 +24,12 @@ public class ForLoop {
     }
 
     public static boolean CheckBorneMinNotBorneMax(Ast min, Ast max, Table tds) {
-        if(min instanceof In && max instanceof In){
+        if(min instanceof Const && max instanceof Const){
             String nameMin =min.getClass().getName().replace('\n', '\0');
             String nameMax =max.getClass().getName().replace('\n', '\0');
             if(nameMin.equals("ast.In") && nameMax.equals("ast.In")){
-                int minInt = ((In)min).in;
-                int maxInt = ((In)max).in;
+                int minInt = ((Const)min).in;
+                int maxInt = ((Const)max).in;
                 if(minInt!=maxInt){
                     return true;
                 }

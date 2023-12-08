@@ -1,11 +1,9 @@
 package ast;
 
-public class Egal2 implements Ast{
-
+public class LessThanOrEq implements Ast{
     public <T> T accept(AstVisitor<T> visitor){
         return visitor.visit(this);
     }
-
 
     public Ast left;
     public Ast right;
@@ -24,7 +22,7 @@ public class Egal2 implements Ast{
     }
 
 
-    public Egal2(Ast left, Ast right, int line, int column) {
+    public LessThanOrEq(Ast left, Ast right, int line, int column) {
         this.left = left;
         this.right = right;
         this.line = line;

@@ -8,12 +8,6 @@ import tds.Table;
 
 public class Expression {
 
-    //verifie si les deux expressions sont du type int
-    /*
-     * param:
-     * -tree Ast noeud d'expression
-     * -type type de l'expression attendu
-     */
     public static boolean checktypeOp(Ast tree,Stack<Table> pile,Table tds){
         String name =tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.Mul")){
@@ -69,7 +63,7 @@ public class Expression {
                 }
             }
         }else if(name.equals("ast.Croexpr") && typeAttendu.equals("int")){
-            return checktype(((Croexpr)tree).expr,"int",pile,tds);
+            return checktype(((Brack)tree).expr,"int",pile,tds);
         }else if(name.equals("ast.AccessVar")){
             Table tdsactuel = new Table(tds.getId());
             tdsactuel=tdsactuel.joinTDS(pile);
@@ -126,19 +120,19 @@ public class Expression {
     private static boolean checkTypeSupInf(Ast tree,Stack<Table> pile,Table tds){
         String name =tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.Sup")){
-            if(checktypesansPrint(((Sup)tree).left,"int",pile,tds) && checktypesansPrint(((Sup)tree).right,"int",pile,tds)){
+            if(checktypesansPrint(((GreaterThan)tree).left,"int",pile,tds) && checktypesansPrint(((GreaterThan)tree).right,"int",pile,tds)){
                 return true;
             }
         }else if(name.equals("ast.Inf")){
-            if(checktypesansPrint(((Inf)tree).left,"int",pile,tds) && checktypesansPrint(((Inf)tree).right,"int",pile,tds)){
+            if(checktypesansPrint(((LessThan)tree).left,"int",pile,tds) && checktypesansPrint(((LessThan)tree).right,"int",pile,tds)){
                 return true;
             }
         }else if(name.equals("ast.Supeg")){
-            if(checktypesansPrint(((Supeg)tree).left,"int",pile,tds) && checktypesansPrint(((Supeg)tree).right,"int",pile,tds)){
+            if(checktypesansPrint(((GreaterThanEq)tree).left,"int",pile,tds) && checktypesansPrint(((GreaterThanEq)tree).right,"int",pile,tds)){
                 return true;
             }
         }else if(name.equals("ast.Infeg")){
-            if(checktypesansPrint(((Infeg)tree).left,"int",pile,tds) && checktypesansPrint(((Infeg)tree).right,"int",pile,tds)){
+            if(checktypesansPrint(((LessThanOrEq)tree).left,"int",pile,tds) && checktypesansPrint(((LessThanOrEq)tree).right,"int",pile,tds)){
                 return true;
             }
         }
@@ -179,7 +173,7 @@ public class Expression {
                 }
             }
         }else if(name.equals("ast.Croexpr") && typeAttendu.equals("int")){
-            return checktypesansPrint(((Croexpr)tree).expr,"int",pile,tds);
+            return checktypesansPrint(((Brack)tree).expr,"int",pile,tds);
         }else if(name.equals("ast.AccessVar")){
             Table tdsactuel = new Table(tds.getId());
             tdsactuel=tdsactuel.joinTDS(pile);
@@ -231,22 +225,16 @@ public class Expression {
     }
 
 
-    //verifie si les deux expressions sont du meme type int ou string
-    /*
-     * param:
-     * -tree Ast noeud d'expression
-     * -type type de l'expression attendu
-     */
     public static boolean checktypeEgal(Ast tree,Stack<Table> pile,Table tds){
         String name =tree.getClass().getName().replace('\n', '\0');
         if(name.equals("ast.Egal2")){
-            if(checktypesansPrint(((Egal2)tree).left,"int",pile,tds) && checktypesansPrint(((Egal2)tree).right,"int",pile,tds)){
+            if(checktypesansPrint(((Equal2)tree).left,"int",pile,tds) && checktypesansPrint(((Equal2)tree).right,"int",pile,tds)){
                 return true;
             }
-            else if(checktypesansPrint(((Egal2)tree).left,"string",pile,tds) && checktypesansPrint(((Egal2)tree).right,"string",pile,tds)){
+            else if(checktypesansPrint(((Equal2)tree).left,"string",pile,tds) && checktypesansPrint(((Equal2)tree).right,"string",pile,tds)){
                 return true;
             }
-            else if(checktypesansPrint(((Egal2)tree).left,"bool",pile,tds) && checktypesansPrint(((Egal2)tree).right,"bool",pile,tds)){
+            else if(checktypesansPrint(((Equal2)tree).left,"bool",pile,tds) && checktypesansPrint(((Equal2)tree).right,"bool",pile,tds)){
                 return true;
             }
             else{
@@ -291,8 +279,8 @@ public class Expression {
     }
 
     public static boolean checktypeDptEgal(Ast tree, Table tds, Stack<Table> pile){
-        String leftType = getType(((Dptegal)tree).left, tds, pile);
-        String rightType = getType(((Dptegal)tree).right, tds, pile);
+        String leftType = getType(((Assign)tree).left, tds, pile);
+        String rightType = getType(((Assign)tree).right, tds, pile);
         if(leftType.equals(rightType)){
             return true;
         }
